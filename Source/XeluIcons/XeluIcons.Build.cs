@@ -26,6 +26,8 @@ public class XeluIcons : ModuleRules
 			new string[]
 			{
 				"Core",
+				"Engine",
+				"InputCore",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -35,7 +37,6 @@ public class XeluIcons : ModuleRules
 			new string[]
 			{
 				"CoreUObject",
-				"Engine",
 				"Slate",
 				"SlateCore",
 				// ... add private dependencies that you statically link with here ...
