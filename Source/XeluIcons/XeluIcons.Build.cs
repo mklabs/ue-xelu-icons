@@ -27,7 +27,6 @@ public class XeluIcons : ModuleRules
 			{
 				"Core",
 				"Engine",
-				"InputCore",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -39,6 +38,9 @@ public class XeluIcons : ModuleRules
 				"CoreUObject",
 				"Slate",
 				"SlateCore",
+				"DeveloperSettings",
+				"InputCore",
+				"EnhancedInput",
 				// ... add private dependencies that you statically link with here ...
 			}
 			);
