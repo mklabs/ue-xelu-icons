@@ -26,14 +26,17 @@ public:
 
 	static const UDataTable* GetIconsDatatable();
 
+	UFUNCTION(BlueprintPure, Category = "Xelu Icons")
+	static UTexture2D* GetIconTextureForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard);
+
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons", Meta = (AdvancedDisplay = "bShouldLoadSynchronous"))
 	static TSoftObjectPtr<UTexture2D> GetSoftIconTextureForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard, bool bShouldLoadSynchronous = true);
 
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons")
-	static UTexture2D* GetIconTextureForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard);
+	static UTexture2D* GetIconTextureForKey(FKey Key, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard);
 
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons")
-	static UTexture2D* GetIconTextureForKey(FKey Key, EXeluIconsIconType IconPreference = EXeluIconsIconType::XboxOne);
+	static TSoftObjectPtr<UTexture2D> GetSoftIconTextureForKey(FKey Key, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard, bool bShouldLoadSynchronous = true);
 
 	static TSoftObjectPtr<UTexture2D> GetIconTextureInternal(FKey Key, const UDataTable* IconsDatatable, EXeluIconsIconType IconPreference, bool bShouldLoadSynchronous = true);
 };

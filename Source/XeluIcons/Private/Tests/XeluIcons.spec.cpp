@@ -98,9 +98,6 @@ void FXeluIconsSpec::Define()
 			TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "Mouse_Left_Key_Dark");
 
 			Key = EKeys::Gamepad_FaceButton_Left;
-			Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key);
-			TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
-			TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "XboxOne_X");
 
 			Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key, EXeluIconsIconType::PS4);
 			TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
