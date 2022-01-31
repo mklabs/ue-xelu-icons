@@ -101,8 +101,14 @@ TSoftObjectPtr<UTexture2D> UXeluIconsBlueprintLibrary::GetSoftIconTextureForKey(
 
 	// Check if passed in key is a keyboard / mouse and force icon preference to keyboard if it is
 	const bool bIsGamepadKey = Key.IsGamepadKey();
-	if (!bIsGamepadKey)
+	if (bIsGamepadKey && IconPreference == EXeluIconsIconType::Keyboard)
 	{
+		// Fallback to Xbox one icon type when wrong preference given for gamepad key
+		IconPreference = EXeluIconsIconType::XboxOne;
+	}
+	else if (!bIsGamepadKey)
+	{
+		// Force Keyboard icon type for any key non gamepad
 		IconPreference = EXeluIconsIconType::Keyboard;
 	}
 
