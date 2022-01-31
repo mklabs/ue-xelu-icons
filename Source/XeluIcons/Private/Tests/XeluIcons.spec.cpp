@@ -8,13 +8,13 @@
 
 BEGIN_DEFINE_SPEC(FXeluIconsSpec, "XeluIcons", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
 
-	UInputAction* InputAction01 = Cast<UInputAction>(StaticLoadObject(UInputAction::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/Fixtures/IA_Xelu_Icons_Test_01.IA_Xelu_Icons_Test_01")));
-	UInputAction* InputAction02 = Cast<UInputAction>(StaticLoadObject(UInputAction::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/Fixtures/IA_Xelu_Icons_Test_02.IA_Xelu_Icons_Test_02")));
-	UInputAction* InputAction03 = Cast<UInputAction>(StaticLoadObject(UInputAction::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/Fixtures/IA_Xelu_Icons_Test_03.IA_Xelu_Icons_Test_03")));
-	UInputAction* InputAction04 = Cast<UInputAction>(StaticLoadObject(UInputAction::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/Fixtures/IA_Xelu_Icons_Test_04.IA_Xelu_Icons_Test_04")));
-	UInputAction* InputAction05 = Cast<UInputAction>(StaticLoadObject(UInputAction::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/Fixtures/IA_Xelu_Icons_Test_05.IA_Xelu_Icons_Test_05")));
+	UInputAction* InputAction01 = Cast<UInputAction>(StaticLoadObject(UInputAction::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/IA_Xelu_Icons_Test_01.IA_Xelu_Icons_Test_01")));
+	UInputAction* InputAction02 = Cast<UInputAction>(StaticLoadObject(UInputAction::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/IA_Xelu_Icons_Test_02.IA_Xelu_Icons_Test_02")));
+	UInputAction* InputAction03 = Cast<UInputAction>(StaticLoadObject(UInputAction::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/IA_Xelu_Icons_Test_03.IA_Xelu_Icons_Test_03")));
+	UInputAction* InputAction04 = Cast<UInputAction>(StaticLoadObject(UInputAction::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/IA_Xelu_Icons_Test_04.IA_Xelu_Icons_Test_04")));
+	UInputAction* InputAction05 = Cast<UInputAction>(StaticLoadObject(UInputAction::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/IA_Xelu_Icons_Test_05.IA_Xelu_Icons_Test_05")));
 
-	UInputMappingContext* Context = Cast<UInputMappingContext>(StaticLoadObject(UInputMappingContext::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/Fixtures/MC_Xelu_Icons_Test.MC_Xelu_Icons_Test")));
+	UInputMappingContext* Context = Cast<UInputMappingContext>(StaticLoadObject(UInputMappingContext::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/MC_Xelu_Icons_Test.MC_Xelu_Icons_Test")));
 
 END_DEFINE_SPEC(FXeluIconsSpec)
 
@@ -76,7 +76,7 @@ void FXeluIconsSpec::Define()
 
 				const TSoftObjectPtr<UTexture2D> Texture = UXeluIconsBlueprintLibrary::GetSoftIconTextureForInputAction(InputAction, Context, EXeluIconsIconType::PS4, false);
 
-				TestTrue(FString::Printf(TEXT("Texture for %s is valid"), *GetNameSafe(InputAction)), Texture.IsValid() == false);
+				TestTrue(FString::Printf(TEXT("Texture for %s is valid"), *GetNameSafe(InputAction)), Texture.IsNull() == false);
 				TestEqual(FString::Printf(TEXT("Texture path for %s is matching"), *GetNameSafe(InputAction)), Texture.ToSoftObjectPath().ToString(), ExpectedPath);
 			}
 		});
@@ -87,6 +87,36 @@ void FXeluIconsSpec::Define()
 
 			TestTrue(FString::Printf(TEXT("Texture for %s is valid"), *GetNameSafe(InputAction01)), Texture != nullptr);
 			TestEqual(FString::Printf(TEXT("Texture path for %s is matching"), *GetNameSafe(InputAction01)), *GetNameSafe(Texture), "Mouse_Left_Key_Dark");
+		});
+
+		It("GetIconTextureForKey()", [this]()
+		{
+			FKey Key = EKeys::LeftMouseButton;
+
+			UTexture2D* Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key);
+			TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
+			TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "Mouse_Left_Key_Dark");
+
+			Key = EKeys::Gamepad_FaceButton_Left;
+			Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key);
+			TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
+			TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "XboxOne_X");
+
+			Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key, EXeluIconsIconType::PS4);
+			TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
+			TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "PS4_Square");
+
+			Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key, EXeluIconsIconType::PS5);
+			TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
+			TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "PS5_Square");
+
+			Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key, EXeluIconsIconType::XboxOne);
+			TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
+			TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "XboxOne_X");
+
+			Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key, EXeluIconsIconType::XboxSeries);
+			TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
+			TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "XboxSeriesX_X");
 		});
 
 		AfterEach([this]()

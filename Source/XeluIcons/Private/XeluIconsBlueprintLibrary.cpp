@@ -26,7 +26,7 @@ const UDataTable* UXeluIconsBlueprintLibrary::GetIconsDatatable()
 	return DataTable.Get();
 }
 
-TSoftObjectPtr<UTexture2D> UXeluIconsBlueprintLibrary::GetSoftIconTextureForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, const EXeluIconsIconType IconPreference, bool bShouldLoadSynchronous)
+TSoftObjectPtr<UTexture2D> UXeluIconsBlueprintLibrary::GetSoftIconTextureForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, const EXeluIconsIconType IconPreference, const bool bShouldLoadSynchronous)
 {
 	TSoftObjectPtr<UTexture2D> MatchingIcon = nullptr;
 
@@ -57,36 +57,13 @@ TSoftObjectPtr<UTexture2D> UXeluIconsBlueprintLibrary::GetSoftIconTextureForInpu
 		return MatchingIcon;
 	}
 
-	// Build up the enum value string (useful later on to build row name str)
-	const FString IconStr = UEnum::GetValueAsString(IconPreference).Replace(TEXT("EXeluIconsIconType::"), TEXT(""));
-
-	const FString Context = FString(TEXT("UXeluIconsBlueprintLibrary::LookupInputsTable"));
-
 	// Iterate over mappings found for the input action and return the first icon matching icon preference
 	for (const FEnhancedActionKeyMapping KeyMapping : KeyMappings)
 	{
-		FKey Key = KeyMapping.Key;
-		const bool bIsGamepadKey = Key.IsGamepadKey();
-
-		const FString RowNameStr = FString::Printf(TEXT("%s.%s"), *IconStr, *Key.ToString());
-		FXeluIconsInputsMetaData* InputMetaData = IconsDatatable->FindRow<FXeluIconsInputsMetaData>(FName(*RowNameStr), Context, false);
-		if (!InputMetaData)
+		TSoftObjectPtr<UTexture2D> FoundIcon = GetIconTextureInternal(KeyMapping.Key, IconsDatatable, IconPreference, bShouldLoadSynchronous);
+		if (!FoundIcon.IsNull())
 		{
-			continue;
-		}
-
-		if (bShouldLoadSynchronous)
-		{
-			UTexture2D* Icon = InputMetaData->Icon.LoadSynchronous();
-			if (!Icon)
-			{
-				continue;
-			}
-		}
-
-		if ((IconPreference == EXeluIconsIconType::Keyboard && !bIsGamepadKey) || (IconPreference != EXeluIconsIconType::Keyboard && bIsGamepadKey))
-		{
-			MatchingIcon = InputMetaData->Icon;
+			MatchingIcon = FoundIcon;
 			break;
 		}
 	}
@@ -110,4 +87,63 @@ UTexture2D* UXeluIconsBlueprintLibrary::GetIconTextureForInputAction(UInputActio
 
 	const TSoftObjectPtr<UTexture2D> Icon = GetSoftIconTextureForInputAction(InputAction, MappingContext, IconPreference);
 	return Icon.IsValid() ? Icon.Get() : nullptr;
+}
+
+UTexture2D* UXeluIconsBlueprintLibrary::GetIconTextureForKey(const FKey Key, EXeluIconsIconType IconPreference)
+{
+	const UDataTable* IconsDatatable = GetIconsDatatable();
+
+	// Check if passed in key is a keyboard / mouse and force icon preference to keyboard if it is
+	const bool bIsGamepadKey = Key.IsGamepadKey();
+	if (!bIsGamepadKey)
+	{
+		IconPreference = EXeluIconsIconType::Keyboard;
+	}
+
+	const TSoftObjectPtr<UTexture2D> Texture2D = GetIconTextureInternal(Key, IconsDatatable, IconPreference);
+	if (Texture2D.IsNull())
+	{
+		XI_LOG(Error, TEXT("GetIconTextureForKey: Texture2D soft pointer is null and can never point to a live UObject"))
+		return nullptr;
+	}
+
+	if (!Texture2D.IsValid())
+	{
+		Texture2D.LoadSynchronous();
+	}
+
+	return Texture2D.Get();
+}
+
+TSoftObjectPtr<UTexture2D> UXeluIconsBlueprintLibrary::GetIconTextureInternal(const FKey Key, const UDataTable* IconsDatatable, const EXeluIconsIconType IconPreference, const bool bShouldLoadSynchronous)
+{
+	TSoftObjectPtr<UTexture2D> MatchingIcon = nullptr;
+
+	const bool bIsGamepadKey = Key.IsGamepadKey();
+
+	const FString IconStr = UEnum::GetValueAsString(IconPreference).Replace(TEXT("EXeluIconsIconType::"), TEXT(""));
+	const FString Context = FString(TEXT("UXeluIconsBlueprintLibrary::LookupInputsTable"));
+
+	const FString RowNameStr = FString::Printf(TEXT("%s.%s"), *IconStr, *Key.ToString());
+	FXeluIconsInputsMetaData* InputMetaData = IconsDatatable->FindRow<FXeluIconsInputsMetaData>(FName(*RowNameStr), Context, false);
+	if (!InputMetaData)
+	{
+		return MatchingIcon;
+	}
+
+	if (bShouldLoadSynchronous)
+	{
+		UTexture2D* Icon = InputMetaData->Icon.LoadSynchronous();
+		if (!Icon)
+		{
+			return MatchingIcon;
+		}
+	}
+
+	if ((IconPreference == EXeluIconsIconType::Keyboard && !bIsGamepadKey) || (IconPreference != EXeluIconsIconType::Keyboard && bIsGamepadKey))
+	{
+		MatchingIcon = InputMetaData->Icon;
+	}
+
+	return MatchingIcon;
 }

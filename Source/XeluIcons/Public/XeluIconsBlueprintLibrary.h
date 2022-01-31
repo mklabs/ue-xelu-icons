@@ -31,4 +31,9 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons")
 	static UTexture2D* GetIconTextureForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard);
+
+	UFUNCTION(BlueprintPure, Category = "Xelu Icons")
+	static UTexture2D* GetIconTextureForKey(FKey Key, EXeluIconsIconType IconPreference = EXeluIconsIconType::XboxOne);
+
+	static TSoftObjectPtr<UTexture2D> GetIconTextureInternal(FKey Key, const UDataTable* IconsDatatable, EXeluIconsIconType IconPreference, bool bShouldLoadSynchronous = true);
 };
