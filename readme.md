@@ -9,3 +9,9 @@ This plugin exposes a Blueprint Library with helpers to return an icon texture (
 The icons used to draw Glyphs/Icons are coming from [Xelu's Controllers & Keyboard Prompts](https://thoseawesomeguys.com/prompts/).
 
 Huge thanks to Nicolae Berbece and ["Those Awesome Guys"](https://thoseawesomeguys.com/) for releasing this pack in the public domain under Creative Commons 0 (CC0).
+
+## License
+
+Icon textures made by Nicolae remain under Creative Commons 0 (CC0).
+
+All other code surrounding it related to making it available as an Unreal Engine plugin is MIT licensed.
