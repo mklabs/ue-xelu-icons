@@ -4,7 +4,7 @@ Xelu's Controllers & Keyboard Prompts as an Unreal Plugin for programmatic use (
 
 This plugin exposes a Blueprint Library with helpers to return an icon texture (either as a soft object reference or resolved UTexture2D) matching the provided Input Action and Mapping Context.
 
-![image](https://user-images.githubusercontent.com/113832/151874711-56b17531-76e1-4181-a357-931cb8493f24.png)
+![xelu_720](https://user-images.githubusercontent.com/113832/152027390-cc88b427-7e8e-47be-a4ef-64cb673ba770.png)
 
 ## Credits
 
