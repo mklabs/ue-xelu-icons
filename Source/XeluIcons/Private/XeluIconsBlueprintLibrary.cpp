@@ -27,13 +27,13 @@ const UDataTable* UXeluIconsBlueprintLibrary::GetIconsDatatable()
 	return DataTable.Get();
 }
 
-UTexture2D* UXeluIconsBlueprintLibrary::GetIconTextureForKey(const FKey Key, const EXeluIconsIconType IconPreference)
+UTexture2D* UXeluIconsBlueprintLibrary::GetIconForKey(const FKey Key, const EXeluIconsIconType IconPreference)
 {
-	const TSoftObjectPtr<UTexture2D> Icon = GetSoftIconTextureForKey(Key, IconPreference);
+	const TSoftObjectPtr<UTexture2D> Icon = GetSoftIconForKey(Key, IconPreference);
 	return Icon.IsValid() ? Icon.Get() : nullptr;
 }
 
-TSoftObjectPtr<UTexture2D> UXeluIconsBlueprintLibrary::GetSoftIconTextureForKey(const FKey Key, EXeluIconsIconType IconPreference, const bool bShouldLoadSynchronous)
+TSoftObjectPtr<UTexture2D> UXeluIconsBlueprintLibrary::GetSoftIconForKey(const FKey Key, EXeluIconsIconType IconPreference, const bool bShouldLoadSynchronous)
 {
 	const UDataTable* IconsDatatable = GetIconsDatatable();
 
@@ -53,14 +53,14 @@ TSoftObjectPtr<UTexture2D> UXeluIconsBlueprintLibrary::GetSoftIconTextureForKey(
 	const TSoftObjectPtr<UTexture2D> Texture2D = GetIconTextureInternal(Key, IconsDatatable, IconPreference, bShouldLoadSynchronous);
 	if (Texture2D.IsNull())
 	{
-		XI_LOG(Error, TEXT("GetSoftIconTextureForKey: Texture2D soft pointer is null and can never point to a live UObject"))
+		XI_LOG(Error, TEXT("GetSoftIconForKey: Texture2D soft pointer is null and can never point to a live UObject"))
 		return nullptr;
 	}
 
 	return Texture2D;
 }
 
-UTexture2D* UXeluIconsBlueprintLibrary::GetIconTextureForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, const EXeluIconsIconType IconPreference)
+UTexture2D* UXeluIconsBlueprintLibrary::GetIconForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, const EXeluIconsIconType IconPreference)
 {
 	if (!InputAction)
 	{
@@ -74,23 +74,23 @@ UTexture2D* UXeluIconsBlueprintLibrary::GetIconTextureForInputAction(UInputActio
 		return nullptr;
 	}
 
-	const TSoftObjectPtr<UTexture2D> Icon = GetSoftIconTextureForInputAction(InputAction, MappingContext, IconPreference);
+	const TSoftObjectPtr<UTexture2D> Icon = GetSoftIconForInputAction(InputAction, MappingContext, IconPreference);
 	return Icon.IsValid() ? Icon.Get() : nullptr;
 }
 
-TSoftObjectPtr<UTexture2D> UXeluIconsBlueprintLibrary::GetSoftIconTextureForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, const EXeluIconsIconType IconPreference, const bool bShouldLoadSynchronous)
+TSoftObjectPtr<UTexture2D> UXeluIconsBlueprintLibrary::GetSoftIconForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, const EXeluIconsIconType IconPreference, const bool bShouldLoadSynchronous)
 {
 	TSoftObjectPtr<UTexture2D> MatchingIcon = nullptr;
 
 	if (!InputAction)
 	{
-		XI_LOG(Error, TEXT("GetSoftIconTextureForInputAction: InputAction is invalid, please prodive one."))
+		XI_LOG(Error, TEXT("GetSoftIconForInputAction: InputAction is invalid, please prodive one."))
 		return MatchingIcon;
 	}
 
 	if (!MappingContext)
 	{
-		XI_LOG(Error, TEXT("GetSoftIconTextureForInputAction: MappingContext is invalid, please prodive one."))
+		XI_LOG(Error, TEXT("GetSoftIconForInputAction: MappingContext is invalid, please prodive one."))
 		return MatchingIcon;
 	}
 
@@ -105,7 +105,7 @@ TSoftObjectPtr<UTexture2D> UXeluIconsBlueprintLibrary::GetSoftIconTextureForInpu
 
 	if (KeyMappings.Num() == 0)
 	{
-		XI_LOG(Error, TEXT("GetSoftIconTextureForInputAction: MappingContext '%s' doesn't define any mapping for '%s' Input Action."), *GetNameSafe(MappingContext), *GetNameSafe(InputAction))
+		XI_LOG(Error, TEXT("GetSoftIconForInputAction: MappingContext '%s' doesn't define any mapping for '%s' Input Action."), *GetNameSafe(MappingContext), *GetNameSafe(InputAction))
 		return MatchingIcon;
 	}
 

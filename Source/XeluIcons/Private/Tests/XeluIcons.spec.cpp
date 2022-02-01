@@ -42,7 +42,7 @@ void FXeluIconsSpec::Define()
 			TestTrue("Resolved Datatable is valid", DataTable != nullptr);
 		});
 
-		It("GetSoftIconTextureForInputAction()", [this]()
+		It("GetSoftIconForInputAction()", [this]()
 		{
 			TMap<UInputAction*, FString> InputsToPath;
 			InputsToPath.Add(InputAction01, "/XeluIcons/Icons/Keyboard_Icons/Dark/Mouse_Left_Key_Dark.Mouse_Left_Key_Dark");
@@ -56,7 +56,7 @@ void FXeluIconsSpec::Define()
 				FString ExpectedPath = Entry.Value;
 				UInputAction* InputAction = Entry.Key;
 
-				const TSoftObjectPtr<UTexture2D> Texture = UXeluIconsBlueprintLibrary::GetSoftIconTextureForInputAction(InputAction, Context, EXeluIconsIconType::Keyboard, false);
+				const TSoftObjectPtr<UTexture2D> Texture = UXeluIconsBlueprintLibrary::GetSoftIconForInputAction(InputAction, Context, EXeluIconsIconType::Keyboard, false);
 
 				TestTrue(FString::Printf(TEXT("Texture for %s is valid"), *GetNameSafe(InputAction)), Texture.IsNull() == false);
 				TestEqual(FString::Printf(TEXT("Texture path for %s is matching"), *GetNameSafe(InputAction)), Texture.ToSoftObjectPath().ToString(), ExpectedPath);
@@ -74,46 +74,46 @@ void FXeluIconsSpec::Define()
 				FString ExpectedPath = Entry.Value;
 				UInputAction* InputAction = Entry.Key;
 
-				const TSoftObjectPtr<UTexture2D> Texture = UXeluIconsBlueprintLibrary::GetSoftIconTextureForInputAction(InputAction, Context, EXeluIconsIconType::PS4, false);
+				const TSoftObjectPtr<UTexture2D> Texture = UXeluIconsBlueprintLibrary::GetSoftIconForInputAction(InputAction, Context, EXeluIconsIconType::PS4, false);
 
 				TestTrue(FString::Printf(TEXT("Texture for %s is valid"), *GetNameSafe(InputAction)), Texture.IsNull() == false);
 				TestEqual(FString::Printf(TEXT("Texture path for %s is matching"), *GetNameSafe(InputAction)), Texture.ToSoftObjectPath().ToString(), ExpectedPath);
 			}
 		});
 
-		It("GetIconTextureForInputAction()", [this]()
+		It("GetIconForInputAction()", [this]()
 		{
-			UTexture2D* Texture = UXeluIconsBlueprintLibrary::GetIconTextureForInputAction(InputAction01, Context);
+			UTexture2D* Texture = UXeluIconsBlueprintLibrary::GetIconForInputAction(InputAction01, Context);
 
 			TestTrue(FString::Printf(TEXT("Texture for %s is valid"), *GetNameSafe(InputAction01)), Texture != nullptr);
 			TestEqual(FString::Printf(TEXT("Texture path for %s is matching"), *GetNameSafe(InputAction01)), *GetNameSafe(Texture), "Mouse_Left_Key_Dark");
 		});
 
-		Describe("GetIconTextureForKey()", [this]()
+		Describe("GetIconForKey()", [this]()
 		{
 			It("Should return valid textures", [this]()
 			{
 				FKey Key = EKeys::LeftMouseButton;
 
-				UTexture2D* Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key);
+				UTexture2D* Texture = UXeluIconsBlueprintLibrary::GetIconForKey(Key);
 				TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
 				TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "Mouse_Left_Key_Dark");
 
 				Key = EKeys::Gamepad_FaceButton_Left;
 
-				Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key, EXeluIconsIconType::PS4);
+				Texture = UXeluIconsBlueprintLibrary::GetIconForKey(Key, EXeluIconsIconType::PS4);
 				TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
 				TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "PS4_Square");
 
-				Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key, EXeluIconsIconType::PS5);
+				Texture = UXeluIconsBlueprintLibrary::GetIconForKey(Key, EXeluIconsIconType::PS5);
 				TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
 				TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "PS5_Square");
 
-				Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key, EXeluIconsIconType::XboxOne);
+				Texture = UXeluIconsBlueprintLibrary::GetIconForKey(Key, EXeluIconsIconType::XboxOne);
 				TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
 				TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "XboxOne_X");
 
-				Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key, EXeluIconsIconType::XboxSeries);
+				Texture = UXeluIconsBlueprintLibrary::GetIconForKey(Key, EXeluIconsIconType::XboxSeries);
 				TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
 				TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "XboxSeriesX_X");
 			});
@@ -122,13 +122,13 @@ void FXeluIconsSpec::Define()
 			{
 				FKey Key = EKeys::LeftMouseButton;
 
-				UTexture2D* Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key, EXeluIconsIconType::XboxOne);
+				UTexture2D* Texture = UXeluIconsBlueprintLibrary::GetIconForKey(Key, EXeluIconsIconType::XboxOne);
 				TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
 				TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "Mouse_Left_Key_Dark");
 
 				Key = EKeys::Gamepad_FaceButton_Left;
 
-				Texture = UXeluIconsBlueprintLibrary::GetIconTextureForKey(Key, EXeluIconsIconType::Keyboard);
+				Texture = UXeluIconsBlueprintLibrary::GetIconForKey(Key, EXeluIconsIconType::Keyboard);
 				TestTrue(FString::Printf(TEXT("Texture for %s key is valid"), *Key.GetDisplayName().ToString()), Texture != nullptr);
 				TestEqual(FString::Printf(TEXT("Texture path for %s key is matching"), *Key.GetDisplayName().ToString()), *GetNameSafe(Texture), "XboxOne_X");
 			});

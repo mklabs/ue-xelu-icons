@@ -77,19 +77,19 @@ public:
 
 	/** Returns matching icon texture for the given key. IconPreference is only relevant for gamepad keys */
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons | Key")
-	static UTexture2D* GetIconTextureForKey(FKey Key, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard);
+	static UTexture2D* GetIconForKey(FKey Key, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard);
 
 	/** Returns matching icon texture as soft object pointer for the given key. IconPreference is only relevant for gamepad keys */
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons | Key")
-	static TSoftObjectPtr<UTexture2D> GetSoftIconTextureForKey(FKey Key, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard, bool bShouldLoadSynchronous = true);
+	static TSoftObjectPtr<UTexture2D> GetSoftIconForKey(FKey Key, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard, bool bShouldLoadSynchronous = true);
 
 	/** Returns matching icon texture given the passed in Input Action / Mapping Context, if there is a mapping defined for this configuration */
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons | Enhanced Input")
-	static UTexture2D* GetIconTextureForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard);
+	static UTexture2D* GetIconForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard);
 
 	/** Returns matching icon texture as soft object pointer given the passed in Input Action / Mapping Context, if there is a mapping defined for this configuration */
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons | Enhanced Input")
-	static TSoftObjectPtr<UTexture2D> GetSoftIconTextureForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard, bool bShouldLoadSynchronous = true);
+	static TSoftObjectPtr<UTexture2D> GetSoftIconForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard, bool bShouldLoadSynchronous = true);
 
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons | Input Settings")
 	static TSoftObjectPtr<UTexture2D> GetSoftIconForActionMapping(FName InputName, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard, bool bShouldLoadSynchronous = true);
