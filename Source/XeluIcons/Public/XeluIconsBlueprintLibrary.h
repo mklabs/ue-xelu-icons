@@ -91,15 +91,19 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons | Enhanced Input")
 	static TSoftObjectPtr<UTexture2D> GetSoftIconForInputAction(UInputAction* InputAction, UInputMappingContext* MappingContext, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard, bool bShouldLoadSynchronous = true);
 
+	/** Returns the first matching icon texture as soft object pointer given the passed in Action Name, if there is a mapping defined for it in Input Settings */
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons | Input Settings")
 	static TSoftObjectPtr<UTexture2D> GetSoftIconForActionMapping(FName InputName, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard, bool bShouldLoadSynchronous = true);
 
+	/** Returns a list of matching icon textures as soft object pointers given the passed in Action Name, if there is one ore more mapping defined for it in Input Settings. */
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons | Input Settings")
 	static TArray<TSoftObjectPtr<UTexture2D>> GetSoftIconsForActionMapping(FName InputName, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard, bool bShouldLoadSynchronous = true);
 
+	/** Returns a structure with Key and Modifiers textures as soft object pointers given the passed in Action Name, if there is a mapping defined for it in Input Settings */
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons | Input Settings")
 	static FXeluIconsActionMappingIcons GetSoftIconForActionMappingWithModifiers(FName InputName, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard, bool bShouldLoadSynchronous = true);
 
+	/** Returns a list structure with Key and Modifiers textures as soft object pointers given the passed in Action Name, if there is one or more mapping defined for it in Input Settings */
 	UFUNCTION(BlueprintPure, Category = "Xelu Icons | Input Settings")
 	static TArray<FXeluIconsActionMappingIcons> GetSoftIconsForActionMappingWithModifiers(FName InputName, EXeluIconsIconType IconPreference = EXeluIconsIconType::Keyboard, bool bShouldLoadSynchronous = true);
 
