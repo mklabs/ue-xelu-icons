@@ -1,6 +1,6 @@
 # ue-xelu-icons
 
-Xelu's Controllers & Keyboard Prompts as an Unreal Plugin for programmatic use (cpp / bp)
+[Xelu's FREE Controllers & Keyboard Prompts](https://thoseawesomeguys.com/prompts/) as an Unreal Plugin for programmatic use (cpp / bp)
 
 <p align="center">
   <img width="460" height="312" src="https://user-images.githubusercontent.com/113832/152027390-cc88b427-7e8e-47be-a4ef-64cb673ba770.png">
