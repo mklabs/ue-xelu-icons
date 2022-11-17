@@ -29,5 +29,5 @@ struct XELUICONS_API FXeluIconsInputsMetaData : public FTableRowBase
 	TSoftObjectPtr<UTexture2D> Icon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Xelu Icons")
-	EXeluIconsIconType IconType;
+	EXeluIconsIconType IconType = EXeluIconsIconType::Keyboard;
 };
