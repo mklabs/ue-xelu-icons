@@ -25,7 +25,7 @@ public:
 	 *
 	 * Thanks to "Nicolae (Xelu) Berbece" and "Those Awesome Guys" to make it available in the public domain licence under Creative Commons 0 (CC0)
 	 */
-	UPROPERTY(config, EditDefaultsOnly, Category = "Icons", meta = (RequiredAssetDataTags = "RowStructure=XeluIconsInputsMetaData"))
+	UPROPERTY(config, EditDefaultsOnly, Category = "Icons", meta = (RequiredAssetDataTags = "RowStructure=/Script/XeluIcons.XeluIconsInputsMetaData"))
 	TSoftObjectPtr<UDataTable> IconsDataTable;
 
 	virtual FName GetCategoryName() const override;
