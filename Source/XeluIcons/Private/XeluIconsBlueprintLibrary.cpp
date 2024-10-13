@@ -135,7 +135,7 @@ TSoftObjectPtr<UTexture2D> UXeluIconsBlueprintLibrary::GetSoftIconForActionMappi
 
 	if (!ActionNames.Contains(InputName))
 	{
-		XI_LOG(Warning, TEXT("GetSoftIconForActionMapping: Input with name '%s' couldn't be found in Input Settings."))
+		XI_LOG(Warning, TEXT("GetSoftIconForActionMapping: Input with name '%s' couldn't be found in Input Settings."), *InputName.ToString())
 		return MatchingIcon;
 	}
 
@@ -163,7 +163,7 @@ TArray<TSoftObjectPtr<UTexture2D>> UXeluIconsBlueprintLibrary::GetSoftIconsForAc
 
 	if (!ActionNames.Contains(InputName))
 	{
-		XI_LOG(Warning, TEXT("GetSoftIconsForActionMapping: Input with name '%s' couldn't be found in Input Settings."))
+		XI_LOG(Warning, TEXT("GetSoftIconsForActionMapping: Input with name '%s' couldn't be found in Input Settings."), *InputName.ToString())
 		return MatchingIcons;
 	}
 
@@ -211,7 +211,7 @@ FXeluIconsActionMappingIcons UXeluIconsBlueprintLibrary::GetSoftIconForActionMap
 
 	if (!ActionNames.Contains(InputName))
 	{
-		XI_LOG(Warning, TEXT("GetSoftIconForActionMappingWithModifiers: Input with name '%s' couldn't be found in Input Settings."))
+		XI_LOG(Warning, TEXT("GetSoftIconForActionMappingWithModifiers: Input with name '%s' couldn't be found in Input Settings."), *InputName.ToString())
 		return FXeluIconsActionMappingIcons();
 	}
 
@@ -239,7 +239,7 @@ TArray<FXeluIconsActionMappingIcons> UXeluIconsBlueprintLibrary::GetSoftIconsFor
 
 	if (!ActionNames.Contains(InputName))
 	{
-		XI_LOG(Warning, TEXT("GetSoftIconsForActionMappingWithModifiers: Input with name '%s' couldn't be found in Input Settings."))
+		XI_LOG(Warning, TEXT("GetSoftIconsForActionMappingWithModifiers: Input with name '%s' couldn't be found in Input Settings."), *InputName.ToString())
 		return ActionMappingIcons;
 	}
 
