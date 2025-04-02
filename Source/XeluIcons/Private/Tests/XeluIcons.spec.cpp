@@ -4,10 +4,18 @@
 #include "InputMappingContext.h"
 #include "XeluIconsBlueprintLibrary.h"
 #include "XeluIconsDeveloperSettings.h"
-#include "XeluIconsLog.h"
 #include "GameFramework/InputSettings.h"
+#include "Misc/AutomationTest.h"
+#include "Misc/EngineVersionComparison.h"
+ 
+#if UE_VERSION_OLDER_THAN(5, 5, 0)
+ 
+// 5.4.x and down
+inline constexpr uint8 EAutomationTestFlags_ApplicationContextMask = EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::ServerContext | EAutomationTestFlags::CommandletContext;
+ 
+#endif
 
-BEGIN_DEFINE_SPEC(FXeluIconsSpec, "XeluIcons", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
+BEGIN_DEFINE_SPEC(FXeluIconsSpec, "XeluIcons", EAutomationTestFlags::ProductFilter | EAutomationTestFlags_ApplicationContextMask)
 
 	UInputAction* InputAction01 = Cast<UInputAction>(StaticLoadObject(UInputAction::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/IA_Xelu_Icons_Test_01.IA_Xelu_Icons_Test_01")));
 	UInputAction* InputAction02 = Cast<UInputAction>(StaticLoadObject(UInputAction::StaticClass(), nullptr, TEXT("/XeluIcons/Tests/IA_Xelu_Icons_Test_02.IA_Xelu_Icons_Test_02")));
