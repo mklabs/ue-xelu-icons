@@ -1,9 +1,9 @@
 ﻿// Copyright 2021 Mickael Daniel. All Rights Reserved.
 
-
 #include "InputMappingContext.h"
 #include "XeluIconsBlueprintLibrary.h"
 #include "XeluIconsDeveloperSettings.h"
+#include "Engine/Texture2D.h"
 #include "GameFramework/InputSettings.h"
 #include "Misc/AutomationTest.h"
 #include "Misc/EngineVersionComparison.h"

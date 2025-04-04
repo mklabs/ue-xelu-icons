@@ -1,12 +1,12 @@
 // Copyright 2022 Mickael Daniel. All Rights Reserved.
 
-
 #include "XeluIconsBlueprintLibrary.h"
 
 #include "InputMappingContext.h"
 #include "XeluIconsDeveloperSettings.h"
 #include "XeluIconsInputMetadata.h"
 #include "XeluIconsLog.h"
+#include "Engine/Texture2D.h"
 #include "GameFramework/InputSettings.h"
 
 const UXeluIconsDeveloperSettings* UXeluIconsBlueprintLibrary::GetPluginSettings()

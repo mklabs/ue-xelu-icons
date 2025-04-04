@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "InputCoreTypes.h"
 #include "XeluIconsInputMetadata.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "XeluIconsBlueprintLibrary.generated.h"

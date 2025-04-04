@@ -2,9 +2,11 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "InputCoreTypes.h"
 #include "Engine/DataTable.h"
 #include "XeluIconsInputMetadata.generated.h"
+
+class UTexture2D;
 
 UENUM(BlueprintType)
 enum class EXeluIconsIconType : uint8
